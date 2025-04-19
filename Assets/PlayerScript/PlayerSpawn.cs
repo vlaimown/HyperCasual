@@ -7,6 +7,6 @@ public class PlayerSpawn : MonoBehaviour
 
     private void Start()
     {
-        player.Initiate();
+        player.Initiate(transform.position);
     }
 }

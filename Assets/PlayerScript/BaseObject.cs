@@ -3,9 +3,9 @@ using UnityEngine;
 public abstract class BaseObject : MonoBehaviour, IMoveable
 {
     public abstract void Move(Vector2 direction);
-    public virtual void Initiate()
+    public virtual void Initiate(Vector3 startPosition)
     {
-        Instantiate(this, Vector3.zero, Quaternion.identity);
+        Instantiate(this, startPosition, Quaternion.identity);
     }
     public virtual void Destroy()
     {
