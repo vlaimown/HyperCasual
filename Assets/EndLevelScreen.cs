@@ -12,6 +12,9 @@ public class EndLevelScreen : MonoBehaviour
     public GameObject buttonAds;
     public GameObject buttonCancel;
     public GameObject textAds;
+
+    public string mainSceneName;
+    public string sceneName;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,11 +37,13 @@ public class EndLevelScreen : MonoBehaviour
     {
         Debug.Log("переход в главное меню");
         hideDiaolog();
+        SceneManager.LoadScene(mainSceneName);
     }
 
     public void NextLevel()
     {
         Debug.Log("переход на следующий уровень");
+        SceneManager.LoadScene(sceneName);
     }
 
     public void showDiaolog()

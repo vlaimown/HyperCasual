@@ -13,8 +13,6 @@ public class Character : BaseObject
     private float _speed = 30f;
 
     private int _coins;
-    private bool _isCollision;
-    private bool _isFirstMove;
     private Rigidbody _rigidbody;
     private SpriteRenderer _spriteRenderer;
     private Animator _animator;
@@ -30,7 +28,6 @@ public class Character : BaseObject
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
         _coins = 0;
-        _isFirstMove = true;
     }
 
     public override void Move(Vector2 direction)
@@ -53,11 +50,8 @@ public class Character : BaseObject
         {
             _animator.SetTrigger("IsSlide");
         }
-        if (_isCollision || _isFirstMove)
-        {
-            _rigidbody.velocity = direction * _speed;
-            _isFirstMove = false;
-        }
+
+        _rigidbody.velocity = direction * _speed;
     }
 
     private void CollectCoin()
@@ -70,19 +64,7 @@ public class Character : BaseObject
         SwipeDetection.SwipeEvent -= Move;
         Enemy.KillEvent -= Destroy;
         _rigidbody = null;
-        _isFirstMove = false;
         OnCharacterDeath();
         base.Destroy();
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision != null)
-            _isCollision = true;
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        _isCollision = false;
     }
 }

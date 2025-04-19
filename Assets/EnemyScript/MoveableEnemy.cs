@@ -3,6 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class MoveableEnemy : StaticEnemy
 {
+    private bool _canMove;
     private Rigidbody _rigidbody;
     private RaycastHit hit;
 
@@ -15,6 +16,7 @@ public class MoveableEnemy : StaticEnemy
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        SwipeDetection.OnSwipeTriggered += TriggerMove;
         _isTriggered = false;
     }
 
@@ -27,8 +29,15 @@ public class MoveableEnemy : StaticEnemy
         }
     }
 
+    private void TriggerMove()
+    {
+        _canMove = true;
+        SwipeDetection.OnSwipeTriggered -= TriggerMove;
+    }
+
     public override void Move(Vector2 direction)
     {
-        _rigidbody.velocity = direction * _speed;
+        if (_canMove)
+            _rigidbody.velocity = direction * _speed;
     }
 }
