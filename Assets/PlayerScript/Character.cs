@@ -3,7 +3,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Character : BaseObject
 {
-    private readonly float _speed = 20f;
+    [SerializeField]
+    private float _speed = 30f;
+
     private bool _isCollision;
     private bool _isFirstMove;
     private Rigidbody _rigidbody;

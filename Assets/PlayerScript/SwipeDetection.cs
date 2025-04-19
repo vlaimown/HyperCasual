@@ -5,6 +5,9 @@ public class SwipeDetection : MonoBehaviour
     public delegate void OnSwipeInput(Vector2 direction);
     public static event OnSwipeInput SwipeEvent;
 
+    public delegate void SwipeTrigger();
+    public static event SwipeTrigger OnSwipeTriggered;
+
     private Vector2 _tapPosition;
     private Vector2 _swipeDelta;
 
@@ -41,12 +44,19 @@ public class SwipeDetection : MonoBehaviour
             }
             if (_swipeDelta.magnitude > _minSwipeDelta)
             {
+                if (OnSwipeTriggered != null)
+                    OnSwipeTriggered();
+
                 if (SwipeEvent != null)
                 {
                     if (Mathf.Abs(_swipeDelta.x) > Mathf.Abs(_swipeDelta.y))
+                    {
                         SwipeEvent(_swipeDelta.x > 0 ? Vector2.right : Vector2.left);
+                    }
                     else
+                    {
                         SwipeEvent(_swipeDelta.y > 0 ? Vector2.up : Vector2.down);
+                    }
                 }
                 ResetSwipe();
             }
