@@ -10,8 +10,9 @@ public class Character : BaseObject
 
     private void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody>();
         SwipeDetection.SwipeEvent += Move;
+        Enemy.KillEvent += Destroy;
+        _rigidbody = GetComponent<Rigidbody>();
         _isFirstMove = true;
     }
 
@@ -22,6 +23,15 @@ public class Character : BaseObject
             _rigidbody.velocity = direction * _speed;
             _isFirstMove = false;
         }
+    }
+
+    public override void Destroy()
+    {
+        SwipeDetection.SwipeEvent -= Move;
+        Enemy.KillEvent -= Destroy;
+        _rigidbody = null;
+        _isFirstMove = false;
+        base.Destroy();
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -9,6 +9,6 @@ public abstract class BaseObject : MonoBehaviour, IMoveable
     }
     public virtual void Destroy()
     {
-        Destroy(this);
+        Destroy(gameObject);
     }
 }
